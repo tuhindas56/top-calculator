@@ -1,0 +1,21 @@
+{
+  "name": "top-calculator",
+  "version": "1.0.0",
+  "description": "Simple calculator project for The Odin Project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuhindas56/top-calculator.git"
+  },
+  "author": "Tuhin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuhindas56/top-calculator/issues"
+  },
+  "homepage": "https://github.com/tuhindas56/top-calculator#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

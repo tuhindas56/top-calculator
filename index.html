@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./dist/app.js"></script>
+  </head>
+  <body class="flex flex-col rubik-regular">
+    <main class="flex flex-col border">
+      <div id="display" class="flex flex-col border">
+        <a href="https://github.com/tuhindas56/top-calculator" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <div>
+          <p id="expression"></p>
+          <p id="total"></p>
+        </div>
+      </div>
+      <div id="button-container" class="flex flex-col border font-size-regular">
+        <div class="flex button-row">
+          <button id="btn-clear">C</button>
+          <button id="btn-delete">DEL</button>
+          <button id="btn-percentage">%</button>
+          <button id="btn-divide">÷</button>
+        </div>
+        <div class="flex">
+          <button id="btn-seven">7</button>
+          <button id="btn-eight">8</button>
+          <button id="btn-nine">9</button>
+          <button id="btn-multiply">x</button>
+        </div>
+        <div class="flex">
+          <button id="btn-four">4</button>
+          <button id="btn-five">5</button>
+          <button id="btn-six">6</button>
+          <button id="btn-subtract">-</button>
+        </div>
+        <div class="flex">
+          <button id="btn-one">1</button>
+          <button id="btn-two">2</button>
+          <button id="btn-three">3</button>
+          <button id="btn-add">+</button>
+        </div>
+        <div class="flex">
+          <button id="btn-zero">0</button>
+          <button id="btn-dot">.</button>
+          <div id="btn-parentheses" class="flex">
+            <button id="btn-left-parenthesis">(</button>
+            <button id="btn-right-parenthesis">)</button>
+          </div>
+          <button id="btn-equals">=</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>built by <a href="https://github.com/tuhindas56" target="_blank" rel="noopener noreferrer">Tuhin Das</a></p>
+    </footer>
+  </body>
+</html>
