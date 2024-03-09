@@ -1,6 +1,5 @@
 :root {
   --button-size: 70px;
-  --button-margin: 4px;
   --font-small: 20px;
   --font-regular: 25px;
   --font-large: 50px;
@@ -49,27 +48,27 @@ main {
 #display {
   height: 34%;
   padding: 20px;
-  justify-content: space-between;
+  justify-content: flex-end;
   text-align: right;
   transition-duration: var(--transition-duration);
-}
-
-#display > a {
-  text-align: left;
 }
 
 #display #expression {
   font-size: var(--font-regular);
   word-wrap: break-word;
+  transition-duration: var(--transition-duration);
 }
 
-#display #total {
+#display #result {
   font-size: var(--font-large);
+  min-height: 60px;
+  word-wrap: break-word;
+
+  transition-duration: var(--transition-duration);
 }
 
 .fa-github {
   font-size: var(--font-small);
-  margin-right: auto;
 }
 
 #button-container {
@@ -78,10 +77,11 @@ main {
   align-items: center;
 }
 
-button {
+button,
+#btn-github {
   height: var(--button-size);
   width: var(--button-size);
-  margin: var(--button-margin);
+  margin: 4px;
   border: none;
   border-radius: 50%;
   font-size: var(--font-regular);
@@ -89,36 +89,32 @@ button {
   transition-duration: var(--transition-duration);
 }
 
-button:hover {
+button:hover,
+#btn-github:hover {
   background-color: #c1d7f0;
+  cursor: default;
 }
 
-button:active {
+button:active,
+#btn-github:active {
   background-color: #b8d1ee;
 }
 
-#btn-parentheses {
-  margin: var(--button-margin);
+#btn-github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#btn-parentheses > button {
-  height: var(--button-size);
-  width: calc(var(--button-size) / 2);
-  margin: 0;
-}
-
-#btn-parentheses > button:nth-child(1) {
-  border-radius: 35px 0 0 35px;
-}
-#btn-parentheses > button:nth-child(2) {
-  border-radius: 0 35px 35px 0;
-}
-
-footer {
-  margin-bottom: 20px;
+#btn-github > a {
+  cursor: default;
 }
 
 a {
   text-decoration: none;
   color: #000;
+}
+
+footer {
+  margin-bottom: 20px;
 }
