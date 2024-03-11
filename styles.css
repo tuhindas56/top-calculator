@@ -5,7 +5,9 @@
   --font-large: 50px;
   --transition-duration: 0.1s;
 }
-
+::selection {
+  background-color: transparent;
+}
 * {
   margin: 0;
   padding: 0;
@@ -60,10 +62,11 @@ main {
 }
 
 #display #result {
+  justify-content: flex-end;
+  align-items: flex-end;
   font-size: var(--font-large);
   min-height: 60px;
   word-wrap: break-word;
-
   transition-duration: var(--transition-duration);
 }
 
@@ -117,4 +120,16 @@ a {
 
 footer {
   margin-bottom: 20px;
+  text-align: center;
+}
+.fa-up-right-from-square {
+  font-size: 8px;
+}
+
+footer p:nth-child(2) {
+  font-size: 12px;
+  padding-top: 5px;
+}
+footer p:nth-child(2) a {
+  color: #50809c;
 }
