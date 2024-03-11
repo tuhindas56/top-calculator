@@ -90,6 +90,7 @@ function inputBtnClicked(input: string) {
     resultDisplay.textContent === "Enter a number first!" ||
     resultDisplay.textContent === "Length exceeded!" ||
     resultDisplay.textContent === "No operator chosen!" ||
+    expressionDisplay.textContent == "Error!" ||
     resultDisplay.textContent === "⚠" ||
     resultDisplay.textContent === "Enter a pair of numbers first!" ||
     resultDisplay.textContent === "Cannot calculate!" ||
@@ -134,7 +135,22 @@ function inputBtnClicked(input: string) {
     resultDisplay.append(input);
   }
 }
+
 function handleOperatorClick(operator: string) {
+  // if (
+  //   expressionDisplay.textContent?.endsWith("+") ||
+  //   calculator.operator !== operator ||
+  //   expressionDisplay.textContent?.endsWith("-") ||
+  //   calculator.operator !== operator ||
+  //   expressionDisplay.textContent?.endsWith("*") ||
+  //   calculator.operator !== operator ||
+  //   expressionDisplay.textContent?.endsWith("÷") ||
+  //   calculator.operator !== operator
+  // ) {
+  //   let temp = Array.from(expressionDisplay.textContent!);
+  //   temp.pop();
+  //   expressionDisplay.textContent = temp.join("");
+  // }
   if (
     calculator.firstOperand !== "" &&
     calculator.secondOperand == "" &&
@@ -290,6 +306,10 @@ function performOperation() {
   }
   if (calculator.result.length > MAX_RESULT_LENGTH) {
     handleError("ResultLengthExceeded");
+  }
+  if (calculator.result == "NaN") {
+    calculator.result = "";
+    handleError("NaN");
   }
 }
 

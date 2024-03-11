@@ -80,6 +80,7 @@ function inputBtnClicked(input) {
         resultDisplay.textContent === "Enter a number first!" ||
         resultDisplay.textContent === "Length exceeded!" ||
         resultDisplay.textContent === "No operator chosen!" ||
+        expressionDisplay.textContent == "Error!" ||
         resultDisplay.textContent === "⚠" ||
         resultDisplay.textContent === "Enter a pair of numbers first!" ||
         resultDisplay.textContent === "Cannot calculate!" ||
@@ -265,6 +266,10 @@ function performOperation() {
     }
     if (calculator.result.length > MAX_RESULT_LENGTH) {
         handleError("ResultLengthExceeded");
+    }
+    if (calculator.result == "NaN") {
+        calculator.result = "";
+        handleError("NaN");
     }
 }
 function handleError(error) {
