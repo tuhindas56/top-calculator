@@ -49,7 +49,7 @@ buttons.addEventListener("click", (event) => {
       inputBtnClicked(".");
   }
 
-  // Handle oOperation buttons
+  // Handle Operation buttons
   switch (target.id) {
     case "btn-add":
       handleOperatorClick("+");
@@ -89,6 +89,7 @@ function inputBtnClicked(input: string) {
     resultDisplay.textContent === "Hello!" ||
     resultDisplay.textContent === "Enter a number first!" ||
     resultDisplay.textContent === "Length exceeded!" ||
+    resultDisplay.textContent === "No operator chosen!" ||
     resultDisplay.textContent === "⚠" ||
     resultDisplay.textContent === "Enter a pair of numbers first!" ||
     resultDisplay.textContent === "Cannot calculate!" ||
@@ -134,10 +135,20 @@ function inputBtnClicked(input: string) {
   }
 }
 function handleOperatorClick(operator: string) {
-  if (calculator.firstOperand !== "" && calculator.secondOperand == "" && calculator.result == "") {
+  if (
+    calculator.firstOperand !== "" &&
+    calculator.secondOperand == "" &&
+    calculator.result == "" &&
+    calculator.operator == ""
+  ) {
     calculator.operator = operator;
     logExpression(operator);
-  } else if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result !== "") {
+  } else if (
+    calculator.firstOperand == "" &&
+    calculator.secondOperand == "" &&
+    calculator.result !== "" &&
+    calculator.operator == ""
+  ) {
     calculator.firstOperand = calculator.result;
     calculator.result = "";
     calculator.operator = operator;
@@ -180,6 +191,14 @@ function equalsBtnClicked() {
     calculator.result == ""
   ) {
     return handleError("EmptyCalculatorObject");
+  } else if (
+    calculator.firstOperand !== "" &&
+    calculator.secondOperand == "" &&
+    calculator.operator == "" &&
+    calculator.result == ""
+  ) {
+    calculator.firstOperand = "";
+    return handleError("NoOperatorChosen");
   } else {
     performOperation();
     logExpression("=");
@@ -283,6 +302,9 @@ function handleError(error: string) {
     case "InputLengthExceeded":
       displayError("Length exceeded!");
       break;
+    case "NoOperatorChosen":
+      displayError("No operator chosen!");
+      break;
     case "DivisionByZero":
       displayError("⚠");
       break;
@@ -331,4 +353,77 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 window.addEventListener("load", () => {
   resultDisplay.textContent = "Hello!";
   setTimeout(() => (resultDisplay.textContent = ""), 700);
+});
+
+// Keyboard support
+document.addEventListener("keydown", (event) => {
+  // Handle input buttons
+  switch (event.key) {
+    case "0":
+      inputBtnClicked("0");
+      break;
+    case "1":
+      inputBtnClicked("1");
+      break;
+    case "2":
+      inputBtnClicked("2");
+      break;
+    case "3":
+      inputBtnClicked("3");
+      break;
+    case "4":
+      inputBtnClicked("4");
+      break;
+    case "5":
+      inputBtnClicked("5");
+      break;
+    case "6":
+      inputBtnClicked("6");
+      break;
+    case "7":
+      inputBtnClicked("7");
+      break;
+    case "8":
+      inputBtnClicked("8");
+      break;
+    case "9":
+      inputBtnClicked("9");
+      break;
+    case ".":
+      inputBtnClicked(".");
+  }
+
+  // Handle Operation buttons
+  switch (event.key) {
+    case "+":
+      handleOperatorClick("+");
+      break;
+    case "-":
+      handleOperatorClick("-");
+      break;
+    case "*":
+      handleOperatorClick("*");
+      break;
+
+    case "/":
+      handleOperatorClick("/");
+      break;
+    case "%":
+      percentageBtnClicked();
+      break;
+    case "Enter":
+      equalsBtnClicked();
+      break;
+  }
+
+  // Handle other buttons
+  switch (event.key) {
+    case "Backspace":
+    case "Escape":
+      clearButtonClicked();
+      break;
+    case "Delete":
+      deleteButtonClicked();
+      break;
+  }
 });

@@ -90,6 +90,7 @@ button,
   font-size: var(--font-regular);
   background-color: #cce0f5;
   transition-duration: var(--transition-duration);
+  outline: none;
 }
 
 button:hover,
