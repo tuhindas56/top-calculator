@@ -62,8 +62,6 @@ buttons.addEventListener("click", (event) => {
       break;
     case "btn-divide":
       handleOperatorClick("/");
-      console.log(calculator.firstOperand);
-      console.log(calculator.secondOperand);
       break;
     case "btn-percentage":
       percentageBtnClicked();
@@ -143,32 +141,48 @@ function inputBtnClicked(input: string) {
 
 function handleOperatorClick(operator: string) {
   if (
-    calculator.firstOperand !== "" &&
-    calculator.secondOperand == "" &&
-    calculator.result == "" &&
-    calculator.operator == ""
+    (!expressionDisplay.textContent!.endsWith(operator) && calculator.operator !== operator) ||
+    (!expressionDisplay.textContent!.endsWith(operator) && calculator.operator !== operator) ||
+    (!expressionDisplay.textContent!.endsWith(operator) && calculator.operator !== operator) ||
+    (!expressionDisplay.textContent!.endsWith(operator) && calculator.operator !== operator)
   ) {
-    calculator.operator = operator;
-    logExpression(operator);
-  } else if (
-    calculator.firstOperand == "" &&
-    calculator.secondOperand == "" &&
-    calculator.result !== "" &&
-    calculator.operator == ""
+    let temp = Array.from(expressionDisplay.textContent!);
+    temp.pop();
+    expressionDisplay.textContent = temp.join("");
+  }
+  if (
+    calculator.operator !== operator &&
+    (calculator.operator !== "*" || operator !== "*") &&
+    (calculator.operator !== "/" || operator !== "/")
   ) {
-    calculator.firstOperand = calculator.result;
-    calculator.result = "";
-    calculator.operator = operator;
-    expressionDisplay.textContent = "";
-    logExpression(operator);
-  } else if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result == "") {
-    handleError("NoInputOperation");
-  } else {
-    performOperation();
-    calculator.firstOperand = calculator.result;
-    calculator.result = "";
-    calculator.operator = operator;
-    logExpression(operator);
+    if (
+      calculator.firstOperand !== "" &&
+      calculator.secondOperand == "" &&
+      calculator.result == "" &&
+      calculator.operator == ""
+    ) {
+      calculator.operator = operator;
+      logExpression(operator);
+    } else if (
+      calculator.firstOperand == "" &&
+      calculator.secondOperand == "" &&
+      calculator.result !== "" &&
+      calculator.operator == ""
+    ) {
+      calculator.firstOperand = calculator.result;
+      calculator.result = "";
+      calculator.operator = operator;
+      expressionDisplay.textContent = "";
+      logExpression(operator);
+    } else if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result == "") {
+      handleError("NoInputOperation");
+    } else {
+      performOperation();
+      calculator.firstOperand = calculator.result;
+      calculator.result = "";
+      calculator.operator = operator;
+      logExpression(operator);
+    }
   }
 }
 

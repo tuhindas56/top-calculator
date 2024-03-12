@@ -58,8 +58,6 @@ buttons.addEventListener("click", (event) => {
             break;
         case "btn-divide":
             handleOperatorClick("/");
-            console.log(calculator.firstOperand);
-            console.log(calculator.secondOperand);
             break;
         case "btn-percentage":
             percentageBtnClicked();
@@ -127,32 +125,44 @@ function inputBtnClicked(input) {
     }
 }
 function handleOperatorClick(operator) {
-    if (calculator.firstOperand !== "" &&
-        calculator.secondOperand == "" &&
-        calculator.result == "" &&
-        calculator.operator == "") {
-        calculator.operator = operator;
-        logExpression(operator);
+    if ((!expressionDisplay.textContent.endsWith(operator) && calculator.operator !== operator) ||
+        (!expressionDisplay.textContent.endsWith(operator) && calculator.operator !== operator) ||
+        (!expressionDisplay.textContent.endsWith(operator) && calculator.operator !== operator) ||
+        (!expressionDisplay.textContent.endsWith(operator) && calculator.operator !== operator)) {
+        let temp = Array.from(expressionDisplay.textContent);
+        temp.pop();
+        expressionDisplay.textContent = temp.join("");
     }
-    else if (calculator.firstOperand == "" &&
-        calculator.secondOperand == "" &&
-        calculator.result !== "" &&
-        calculator.operator == "") {
-        calculator.firstOperand = calculator.result;
-        calculator.result = "";
-        calculator.operator = operator;
-        expressionDisplay.textContent = "";
-        logExpression(operator);
-    }
-    else if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result == "") {
-        handleError("NoInputOperation");
-    }
-    else {
-        performOperation();
-        calculator.firstOperand = calculator.result;
-        calculator.result = "";
-        calculator.operator = operator;
-        logExpression(operator);
+    if (calculator.operator !== operator &&
+        (calculator.operator !== "*" || operator !== "*") &&
+        (calculator.operator !== "/" || operator !== "/")) {
+        if (calculator.firstOperand !== "" &&
+            calculator.secondOperand == "" &&
+            calculator.result == "" &&
+            calculator.operator == "") {
+            calculator.operator = operator;
+            logExpression(operator);
+        }
+        else if (calculator.firstOperand == "" &&
+            calculator.secondOperand == "" &&
+            calculator.result !== "" &&
+            calculator.operator == "") {
+            calculator.firstOperand = calculator.result;
+            calculator.result = "";
+            calculator.operator = operator;
+            expressionDisplay.textContent = "";
+            logExpression(operator);
+        }
+        else if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result == "") {
+            handleError("NoInputOperation");
+        }
+        else {
+            performOperation();
+            calculator.firstOperand = calculator.result;
+            calculator.result = "";
+            calculator.operator = operator;
+            logExpression(operator);
+        }
     }
 }
 function percentageBtnClicked() {
