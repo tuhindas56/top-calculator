@@ -58,7 +58,6 @@ main {
 #display #expression {
   font-size: var(--font-regular);
   word-wrap: break-word;
-  transition-duration: var(--transition-duration);
 }
 
 #display #result {
@@ -67,7 +66,6 @@ main {
   font-size: var(--font-large);
   min-height: 60px;
   word-wrap: break-word;
-  transition-duration: var(--transition-duration);
 }
 
 .fa-github {

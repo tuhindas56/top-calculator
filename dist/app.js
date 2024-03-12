@@ -58,6 +58,8 @@ buttons.addEventListener("click", (event) => {
             break;
         case "btn-divide":
             handleOperatorClick("/");
+            console.log(calculator.firstOperand);
+            console.log(calculator.secondOperand);
             break;
         case "btn-percentage":
             percentageBtnClicked();
@@ -76,15 +78,19 @@ buttons.addEventListener("click", (event) => {
     }
 });
 function inputBtnClicked(input) {
-    if (resultDisplay.textContent === "Hello!" ||
-        resultDisplay.textContent === "Enter a number first!" ||
-        resultDisplay.textContent === "Length exceeded!" ||
-        resultDisplay.textContent === "No operator chosen!" ||
-        expressionDisplay.textContent == "Error!" ||
-        resultDisplay.textContent === "⚠" ||
-        resultDisplay.textContent === "Enter a pair of numbers first!" ||
-        resultDisplay.textContent === "Cannot calculate!" ||
-        resultDisplay.textContent === "Error!") {
+    const errorMessages = [
+        "Hello!",
+        "Error: Enter a number first!",
+        "Error: Length exceeded!",
+        "Error: No operator chosen!",
+        "Error: Invalid divisor!",
+        "Error: Enter a pair of numbers first!",
+        "Error: Cannot calculate!",
+        "Error!",
+        "Cleared!",
+        "Purged!",
+    ];
+    if (errorMessages.includes(resultDisplay.textContent) || errorMessages.includes(expressionDisplay.textContent)) {
         return;
     }
     if (calculator.result !== "" && expressionDisplay.textContent !== "" && resultDisplay.textContent !== "") {
@@ -186,7 +192,13 @@ function equalsBtnClicked() {
     else {
         performOperation();
         logExpression("=");
-        resultDisplay.textContent = calculator.result;
+        if (calculator.result == "undefined" || calculator.result == "NaN") {
+            calculator.result = "";
+            return;
+        }
+        else {
+            resultDisplay.textContent = calculator.result;
+        }
     }
 }
 function clearButtonClicked() {
@@ -196,8 +208,9 @@ function clearButtonClicked() {
     else {
         calculator.secondOperand = "";
     }
-    if (calculator.firstOperand == "" && calculator.secondOperand == "") {
+    if (calculator.firstOperand == "" && calculator.secondOperand == "" && calculator.result !== "") {
         expressionDisplay.textContent = "";
+        calculator.result = "";
     }
     changeFontSize("reset");
     resultDisplay.textContent = "Cleared!";
@@ -225,8 +238,8 @@ function multiply(a, b) {
     return parseFloat((+a * +b).toFixed(10));
 }
 function divide(a, b) {
-    if (b == 0 || b == "0") {
-        handleError("DivisionByZero");
+    if (b == "" || b == 0 || b == "0" || b == ".") {
+        handleError("InvalidDivisor");
         return;
     }
     return parseFloat((+a / +b).toFixed(10));
@@ -267,30 +280,26 @@ function performOperation() {
     if (calculator.result.length > MAX_RESULT_LENGTH) {
         handleError("ResultLengthExceeded");
     }
-    if (calculator.result == "NaN") {
-        calculator.result = "";
-        handleError("NaN");
-    }
 }
 function handleError(error) {
     switch (error) {
         case "NoInputOperation":
-            displayError("Enter a number first!");
+            displayError("Error: Enter a number first!");
             break;
         case "InputLengthExceeded":
-            displayError("Length exceeded!");
+            displayError("Error: Length exceeded!");
             break;
         case "NoOperatorChosen":
-            displayError("No operator chosen!");
+            displayError("Error: No operator chosen!");
             break;
-        case "DivisionByZero":
-            displayError("⚠");
+        case "InvalidDivisor":
+            displayError("Error: Invalid divisor!");
             break;
         case "EmptyCalculatorObject":
-            displayError("Enter a pair of numbers first!");
+            displayError("Error: Enter a pair of numbers first!");
             break;
         case "ResultLengthExceeded":
-            displayError("Cannot calculate!");
+            displayError("Error: Cannot calculate!");
             break;
         default:
             displayError("Error!");
@@ -299,16 +308,23 @@ function handleError(error) {
 }
 function displayError(string) {
     expressionDisplay.textContent = "";
-    (resultDisplay.textContent = string),
-        setTimeout(() => {
-            resultDisplay.textContent = "";
-            expressionDisplay.textContent = "";
-        }, 700);
+    changeFontSize("change");
+    resultDisplay.textContent = string;
+    setTimeout(() => {
+        resultDisplay.textContent = "";
+        expressionDisplay.textContent = "";
+        changeFontSize("reset");
+    }, 700);
 }
 function logExpression(operator) {
     if (operator == "=") {
-        expressionDisplay.append(`${resultDisplay.textContent}`);
-        return;
+        if (calculator.result == "undefined" || calculator.result == "NaN") {
+            return;
+        }
+        else {
+            expressionDisplay.append(`${resultDisplay.textContent}`);
+            return;
+        }
     }
     expressionDisplay.append(`${resultDisplay.textContent}${operator}`);
     resultDisplay.textContent = "";
@@ -328,6 +344,9 @@ window.addEventListener("load", () => {
     setTimeout(() => (resultDisplay.textContent = ""), 700);
 });
 document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
     switch (event.key) {
         case "0":
             inputBtnClicked("0");
@@ -378,6 +397,7 @@ document.addEventListener("keydown", (event) => {
         case "%":
             percentageBtnClicked();
             break;
+        case "=":
         case "Enter":
             equalsBtnClicked();
             break;
