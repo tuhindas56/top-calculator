@@ -1,2 +1,3 @@
 # top-calculator
-Simple calculator project for The Odin Project
+
+A simple calculator project built as part of <a href="https://www.theodinproject.com/lessons/foundations-calculator">The Odin Project curriculum.</a>
